@@ -21,13 +21,13 @@ z2 = 0
 
 l = 100
 
-rx = 45
-ry = 45
-rz = 45
+rx = 0
+ry = 20
+rz = 0
 
-rx = np.deg2rad(-rx)
+rx = np.deg2rad(rx)
 ry = np.deg2rad(ry)
-rz = np.deg2rad(-rz)
+rz = np.deg2rad(rz)
 
 
 x2 = x1 + int(l * np.cos(rz))
