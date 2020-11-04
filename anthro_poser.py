@@ -89,13 +89,11 @@ for i, joint in enumerate(joints):
 
 
 
-
-
-
-frontImage = cv2.resize(frontImage, (int(w1/4), int(h1/4)), interpolation = cv2.INTER_AREA)
-topImage = cv2.resize(topImage, (int(w2/4), int(h2/4)), interpolation = cv2.INTER_AREA)
-leftImage = cv2.resize(leftImage, (int(w3/4), int(h3/4)), interpolation = cv2.INTER_AREA)
-rightImage = cv2.resize(rightImage, (int(w4/4), int(h4/4)), interpolation = cv2.INTER_AREA)
+resizeFactor = 10
+frontImage = cv2.resize(frontImage, (int(w1/resizeFactor), int(h1/resizeFactor)), interpolation = cv2.INTER_AREA)
+topImage = cv2.resize(topImage, (int(w2/resizeFactor), int(h2/resizeFactor)), interpolation = cv2.INTER_AREA)
+leftImage = cv2.resize(leftImage, (int(w3/resizeFactor), int(h3/resizeFactor)), interpolation = cv2.INTER_AREA)
+rightImage = cv2.resize(rightImage, (int(w4/resizeFactor), int(h4/resizeFactor)), interpolation = cv2.INTER_AREA)
 
 
 
@@ -105,6 +103,24 @@ imgrow1 = cv2.hconcat([frontImage, topImage])
 imgrow2 = cv2.hconcat([leftImage, rightImage])
 img = cv2.vconcat([imgrow1, imgrow2])
 
+
+
+
 cv2.imshow('Pose',img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
+
+
+for j in joints:
+    j[0] = j[0] - int(w1 / 2)
+    j[1] = j[1] - int(h1 / 2)
+
+for j in joints:
+    print(j[0])
+print("\n\n")
+for j in joints:
+    print(j[1])
+print("\n\n")
+for j in joints:
+    print(j[2])
+print("\n\n")

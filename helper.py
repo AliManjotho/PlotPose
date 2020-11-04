@@ -29,19 +29,6 @@ def getJoints(bones):
         y1 = joints[parent][1]
         z1 = joints[parent][2]
 
-        # x2 = x1
-        # y2 = y1 + int(boneLength * np.sin(rx))
-        # z2 = z1 + int(boneLength * np.cos(rx))
-        #
-        # new_l = (x2 - x1)
-        # x2 = x1 + int(new_l * np.cos(ry))
-        # z2 = z1 + int(new_l * np.sin(ry))
-        #
-        # new_l = (x2 - x1)
-        # x2 = x1 + int(new_l * np.cos(rz))
-        # y2 = y1 + int(new_l * np.sin(rz))
-
-
         x2 = x1 + int(boneLength * np.cos(rz))
         y2 = y1 + int(boneLength * np.sin(rz))
         z2 = z1
