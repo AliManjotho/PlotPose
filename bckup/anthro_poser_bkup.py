@@ -6,26 +6,26 @@ from constants import *
 
 # Parent, Child, boneLength, Rx, Ry, Rz
 bones = [
-         [10,11,124.21,0,0,165],  # L10
-         [11,12,457.20,0,-45,-115],   # L11
-         [12,13,444.50,0,20,-80],      # L12
-         [10,14,124.21,0,0,-15],    # L13
-         [14,15,457.20,0,-15,-88],    # L14
-         [15,16,444.50,0,10,-100],  # L15
-         [10,9,125.09,0,0,75],      # L9
-         [9,8,250.19,0,0,75],       # L8
-         [8,1,121.92,0,0,75],       # L7
-         [1,0,190.50,0,0,75],       # L0
-         [1,2,193.04,0,-10,165],     # L1
-         [2,3,292.10,0,-20,165],     # L2
-         [3,4,291.60,0,-30,115],    # L3
-         [1,5,193.04,0,10,-15],      # L4
-         [5,6,292.10,0,20,-40],        # L5
-         [6,7,291.60,0,25,-50],        # L6
-         [0,17,81.69,0,0,105],     # L16
-         [17,19,87.88,0,0,-150],    # L17
-         [0,18,81.69,0,0,45],     # L18
-         [18,20,87.88,0,0,-60]      # L19
+         [10,11,124.21,-90,-195,0],   # L10
+         [11,12,457.20,-35,-100,0],   # L11
+         [12,13,444.50,-110,-110,0],  # L12
+         [10,14,124.21,-90,-15,0],    # L13
+         [14,15,457.20,-80,-80,0],    # L14
+         [15,16,444.50,-100,-100,0],  # L15
+         [10,9,125.09,90,-75,0],      # L9
+         [9,8,250.19,90,-75,0],       # L8
+         [8,1,121.92,90,-75,0],       # L7
+         [1,0,190.50,90,-75,0],       # L0
+         [1,2,193.04,-90,-195,0],     # L1
+         [2,3,292.10,-50,-200,0],     # L2
+         [3,4,291.60,-130,-265,0],    # L3
+         [1,5,193.04,-90,-15,0],      # L4
+         [5,6,292.10,85,35,0],        # L5
+         [6,7,291.60,85,50,0],        # L6
+         [0,17,81.69,-90,-240,0],     # L16
+         [17,19,87.88,-90,-150,0],    # L17
+         [0,18,81.69,-90,-330,0],     # L18
+         [18,20,87.88,-90,-60,0]      # L19
         ]
 
 joints = getJoints(bones)
@@ -45,7 +45,7 @@ cv2.putText(frontImage, "Front View", (20,60), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0
 cv2.putText(frontImage, "Y", (int(w1/2) + 20 , 60), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0,0,0), thickness=8, lineType=cv2.LINE_AA)
 cv2.putText(frontImage, "X", (w1 - 60,int(h1/2) + 60), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0,0,0), thickness=8, lineType=cv2.LINE_AA)
 
-cv2.line(topImage, (0, h2 - 100),(w2, h2 - 100), (0.0,0.0,0.0), 1, cv2.LINE_AA)
+cv2.line(topImage, (0, int(h2/2)),(w2, int(h2/2)), (0.0,0.0,0.0), 1, cv2.LINE_AA)
 cv2.line(topImage, (int(w2/2), 0),(int(w2/2), h2), (0.0,0.0,0.0), 1, cv2.LINE_AA)
 cv2.putText(topImage, "Top View", (20,60), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0,0,0), thickness=6, lineType=cv2.LINE_AA)
 cv2.putText(topImage, "Z", (int(w2/2) + 20 , 60), cv2.FONT_HERSHEY_SIMPLEX, 2.0, (0,0,0), thickness=8, lineType=cv2.LINE_AA)
@@ -67,16 +67,13 @@ cv2.putText(rightImage, "-Z", (40, int(h4/2) + 60), cv2.FONT_HERSHEY_SIMPLEX, 2.
 
 
 
-for b in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]:
-    bone = bones[b]
+for bone in bones:
     cv2.line(frontImage, (joints[bone[0]][0], joints[bone[0]][1]), (joints[bone[1]][0], joints[bone[1]][1]), (0.5, 0.5, 0.5), 12, cv2.LINE_AA)
     cv2.line(topImage, (joints[bone[0]][0], h2 - joints[bone[0]][2]), (joints[bone[1]][0], h2 - joints[bone[1]][2]), (0.5, 0.5, 0.5), 12, cv2.LINE_AA)
     cv2.line(leftImage, (joints[bone[0]][2], joints[bone[0]][1]), (joints[bone[1]][2], joints[bone[1]][1]), (0.5, 0.5, 0.5), 12, cv2.LINE_AA)
     cv2.line(rightImage, (w4 - joints[bone[0]][2], joints[bone[0]][1]), (w4 - joints[bone[1]][2], joints[bone[1]][1]), (0.5, 0.5, 0.5), 12, cv2.LINE_AA)
 
-for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]:
-    joint = joints[i]
-#for i, joint in enumerate(joints):
+for i, joint in enumerate(joints):
     cv2.circle(frontImage, (joint[0], joint[1]), 34, (0.5, 0.5, 0.5), cv2.FILLED, lineType=cv2.LINE_AA)
     cv2.circle(frontImage, (joint[0], joint[1]), 25, hex_to_rgb(colors[i]), cv2.FILLED, lineType=cv2.LINE_AA)
 
@@ -91,8 +88,8 @@ for i in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 
 
 
 
-# 4
-resizeFactor = 4
+
+resizeFactor = 10
 frontImage = cv2.resize(frontImage, (int(w1/resizeFactor), int(h1/resizeFactor)), interpolation = cv2.INTER_AREA)
 topImage = cv2.resize(topImage, (int(w2/resizeFactor), int(h2/resizeFactor)), interpolation = cv2.INTER_AREA)
 leftImage = cv2.resize(leftImage, (int(w3/resizeFactor), int(h3/resizeFactor)), interpolation = cv2.INTER_AREA)
