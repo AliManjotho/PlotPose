@@ -6,26 +6,26 @@ from constants import *
 
 # Parent, Child, boneLength, Rx, Ry, Rz
 bones = [
-         [10,11,124.21,0,0,165],  # L10
-         [11,12,457.20,0,-45,-115],   # L11
-         [12,13,444.50,0,20,-80],      # L12
-         [10,14,124.21,0,0,-15],    # L13
-         [14,15,457.20,0,-15,-88],    # L14
-         [15,16,444.50,0,10,-100],  # L15
-         [10,9,125.09,0,0,75],      # L9
-         [9,8,250.19,0,0,75],       # L8
-         [8,1,121.92,0,0,75],       # L7
-         [1,0,190.50,0,0,75],       # L0
-         [1,2,193.04,0,-10,165],     # L1
-         [2,3,292.10,0,-20,165],     # L2
-         [3,4,291.60,0,-30,115],    # L3
-         [1,5,193.04,0,10,-15],      # L4
-         [5,6,292.10,0,20,-40],        # L5
-         [6,7,291.60,0,25,-50],        # L6
-         [0,17,81.69,0,0,105],     # L16
-         [17,19,87.88,0,0,-150],    # L17
-         [0,18,81.69,0,0,45],     # L18
-         [18,20,87.88,0,0,-60]      # L19
+         [10,11,124.21,0,0,180],  # L10
+         [11,12,457.20,0,-60,-100],   # L11
+         [12,13,444.50,0,-40,-90],      # L12
+         [10,14,124.21,0,0,0],    # L13
+         [14,15,457.20,0,-30,-100],    # L14
+         [15,16,444.50,0,10,-90],  # L15
+         [10,9,125.09,0,20,95],      # L9
+         [9,8,250.19,0,20,95],       # L8
+         [8,1,121.92,0,20,95],       # L7
+         [1,0,190.50,0,20,95],       # L0
+         [1,2,193.04,0,-15,190],     # L1
+         [2,3,292.10,0,-15,190],     # L2
+         [3,4,291.60,0,-25,190],    # L3
+         [1,5,193.04,0,20,20],      # L4
+         [5,6,292.10,0,20,20],        # L5
+         [6,7,291.60,0,20,20],        # L6
+         [0,17,81.69,0,0,125],     # L16
+         [17,19,87.88,0,0,-130],    # L17
+         [0,18,81.69,0,0,65],     # L18
+         [18,20,87.88,0,0,-40]      # L19
         ]
 
 joints = getJoints(bones)
@@ -109,6 +109,28 @@ img = cv2.vconcat([imgrow1, imgrow2])
 
 
 
+xs = np.array([j[0] for j in joints])
+ys = np.array([j[1] for j in joints])
+zs = np.array([j[2] for j in joints])
+
+sx = ( (sw/2) + np.rad2deg(np.arctan(xs/zs)) * sw / fovh ).astype(int)
+sy = ( (sh/2) + np.rad2deg(np.arctan(ys/zs)) * sh / fovv ).astype(int)
+
+imgScreen = np.ones((sh,sw,3))
+
+for b in range(0, len(bones)):
+    bone = bones[b]
+    cv2.line(imgScreen, (sx[bone[0]], sy[bone[0]]), (sx[bone[1]], sy[bone[1]]), (0.5, 0.5, 0.5), 2, cv2.LINE_AA)
+
+for i in range(0,len(sx)):
+    cv2.circle(imgScreen, (sx[i], sy[i]), 6, (0.5, 0.5, 0.5), cv2.FILLED, lineType=cv2.LINE_AA)
+    cv2.circle(imgScreen, (sx[i], sy[i]), 4, hex_to_rgb(colors[i]), cv2.FILLED, lineType=cv2.LINE_AA)
+
+
+
+
+
+cv2.imshow('Screen', imgScreen)
 cv2.imshow('Pose',img)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
@@ -127,3 +149,11 @@ print("\n\n")
 for j in joints:
     print(j[2])
 print("\n\n")
+
+
+for x in sx:
+    print(x)
+print("\n\n")
+for y in sy:
+    print(y)
+

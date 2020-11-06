@@ -17,6 +17,7 @@ def getJoints(bones):
     joints = [[0,0,0] for i in range(0,21)]
 
     joints[10] = [int(w1 / 2), int(h1 / 2), hipDepth]
+    #joints[10] = [0, 0, hipDepth]
 
     for bone in bones:
         parent = bone[0]
